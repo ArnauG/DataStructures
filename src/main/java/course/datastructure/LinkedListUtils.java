@@ -23,9 +23,25 @@ public class LinkedListUtils {
   }
 
   public static void removeMaximumValues(LinkedList<String> list, int N) {
+    int numOfDeletedElements = 0;
+    while (numOfDeletedElements < N) {
+      int indexOfGreaterElement = getIndexOfGreaterElement(list);
+      list.remove(indexOfGreaterElement);
+      numOfDeletedElements++;
+    }
+  }
 
-    /* IMPLEMENT THIS METHOD! */
+  private static int getIndexOfGreaterElement(LinkedList<String> list) {
+    int indexOfElementGreater = 0;
+    String[] array = list.toArray(new String[list.size()]);
 
+    for (int i = 0; i < list.size(); i++) {
+      String greaterElement = array[indexOfElementGreater];
+      if (greaterElement.compareTo(array[i]) < 0) {
+        indexOfElementGreater = i;
+      }
+    }
+    return indexOfElementGreater;
   }
 
   public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
