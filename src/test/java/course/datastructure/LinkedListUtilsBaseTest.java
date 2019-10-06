@@ -1,5 +1,10 @@
 package course.datastructure;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import org.junit.Test;
@@ -8,14 +13,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class LinkedListUtilsTest {
+public abstract class LinkedListUtilsBaseTest {
+  public static final int NUM_OF_NAMES_IN_FIXTURE = 500;
+  LinkedListUtils linkedListUtils;
 
   @Test
   public void itShouldInsertAnElementWhenListIsEmpty() {
     int givenValue = 3;
     int expectedValue = 3;
     LinkedList<Integer> integerLinkedList = new LinkedList<>();
-    LinkedListUtils.insertSorted(integerLinkedList, givenValue);
+    linkedListUtils.insertSorted(integerLinkedList, givenValue);
     assertTrue(expectedValue == integerLinkedList.getFirst());
   }
 
@@ -26,7 +33,7 @@ public class LinkedListUtilsTest {
     LinkedList<Integer> integerLinkedList = new LinkedList(Arrays.asList(givenArray));
     int givenValue2 = 4;
     int expectedValue = 4;
-    LinkedListUtils.insertSorted(integerLinkedList, givenValue2);
+    linkedListUtils.insertSorted(integerLinkedList, givenValue2);
     assertTrue(expectedValue == integerLinkedList.getLast());
   }
 
@@ -37,7 +44,7 @@ public class LinkedListUtilsTest {
     LinkedList<Integer> integerLinkedList = new LinkedList(Arrays.asList(givenArray));
     int givenValue2 = 3;
     int expectedValue = 3;
-    LinkedListUtils.insertSorted(integerLinkedList, givenValue2);
+    linkedListUtils.insertSorted(integerLinkedList, givenValue2);
     assertTrue(expectedValue == integerLinkedList.getFirst());
   }
 
@@ -47,7 +54,7 @@ public class LinkedListUtilsTest {
     LinkedList<Integer> integerLinkedList = new LinkedList(Arrays.asList(givenArray));
     int givenValue3 = 4;
     int expectedValue = 4;
-    LinkedListUtils.insertSorted(integerLinkedList, givenValue3);
+    linkedListUtils.insertSorted(integerLinkedList, givenValue3);
     assertTrue(expectedValue == integerLinkedList.get(1));
   }
 
@@ -57,7 +64,7 @@ public class LinkedListUtilsTest {
     int numOfElementsToDelete = 0;
     LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
     LinkedList<String> expected = new LinkedList(Arrays.asList(givenArray));
-    LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
   }
 
@@ -68,7 +75,7 @@ public class LinkedListUtilsTest {
     int numOfElementsToDelete = 1;
     LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
     LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
-    LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
   }
 
@@ -79,7 +86,7 @@ public class LinkedListUtilsTest {
     int numOfElementsToDelete = 1;
     LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
     LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
-    LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
   }
 
@@ -90,7 +97,7 @@ public class LinkedListUtilsTest {
     int numOfElementsToDelete = 2;
     LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
     LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
-    LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
   }
 
@@ -101,7 +108,7 @@ public class LinkedListUtilsTest {
     int numOfElementsToDelete = 3;
     LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
     LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
-    LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
   }
 
@@ -112,7 +119,7 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {3, 5, 3};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertFalse(result);
   }
@@ -124,7 +131,7 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {6};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertFalse(result);
   }
@@ -136,7 +143,7 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {5};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertTrue(result);
   }
@@ -148,7 +155,7 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {3, 5};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertTrue(result);
   }
@@ -160,7 +167,7 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {7, 8};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertTrue(result);
   }
@@ -172,8 +179,36 @@ public class LinkedListUtilsTest {
     Integer[] givenSecondArray = {7, 9};
     LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
 
-    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+    boolean result = linkedListUtils.containsSubsequence(firstSequence, secondSequence);
 
     assertFalse(result);
+  }
+
+  @Test
+  public void itShouldRemoveAllElementsOfLinkedListHeavyLoad() throws IOException {
+    String[] givenArray = loadNames("fixtures/names");
+    String[] expectedArray = {};
+    int numOfElementsToDelete = NUM_OF_NAMES_IN_FIXTURE;
+    LinkedList<String> stringLinkedList = new LinkedList(Arrays.asList(givenArray));
+    LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
+    long start = System.currentTimeMillis();
+    linkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
+    long end = System.currentTimeMillis();
+    System.out.println("DEBUG: Logic Test took " + (end - start) + " MilliSeconds");
+    assertEquals(expected, stringLinkedList);
+  }
+
+  private static String[] loadNames(String path) throws IOException {
+    ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    InputStream inputStream = classloader.getResourceAsStream(path);
+    ArrayList<String> names = new ArrayList();
+    try (BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream))) {
+      String strCurrentLine;
+
+      while ((strCurrentLine = buffer.readLine()) != null) {
+        names.add(strCurrentLine);
+      }
+    }
+    return names.toArray(new String[NUM_OF_NAMES_IN_FIXTURE]);
   }
 }
