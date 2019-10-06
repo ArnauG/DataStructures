@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LinkedListUtilsTest {
@@ -102,5 +103,77 @@ public class LinkedListUtilsTest {
     LinkedList<String> expected = new LinkedList(Arrays.asList(expectedArray));
     LinkedListUtils.removeMaximumValues(stringLinkedList, numOfElementsToDelete);
     assertEquals(expected, stringLinkedList);
+  }
+
+  @Test
+  public void itShouldReturnFalseWhenSecondSequenceIsLongerThanFirst() {
+    Integer[] givenFirstArray = {3, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {3, 5, 3};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertFalse(result);
+  }
+
+  @Test
+  public void itShouldReturnFalseIfASingleELementIsNotContainedInTheSequence() {
+    Integer[] givenFirstArray = {3, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {6};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertFalse(result);
+  }
+
+  @Test
+  public void itShouldReturnTrueIfASingleELementIsContainedInTheSequence() {
+    Integer[] givenFirstArray = {3, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {5};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertTrue(result);
+  }
+
+  @Test
+  public void itShouldReturnTrueForSameSequenceIsContainedInTheSequence() {
+    Integer[] givenFirstArray = {3, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {3, 5};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertTrue(result);
+  }
+
+  @Test
+  public void itShouldReturnTrueForASequenceIsContainedInTheMiddleSequence() {
+    Integer[] givenFirstArray = {3, 7, 8, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {7, 8};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertTrue(result);
+  }
+
+  @Test
+  public void itShouldReturnFalseForASequenceNotContainedInTheSequence() {
+    Integer[] givenFirstArray = {3, 7, 8, 5};
+    LinkedList<Integer> firstSequence = new LinkedList(Arrays.asList(givenFirstArray));
+    Integer[] givenSecondArray = {7, 9};
+    LinkedList<Integer> secondSequence = new LinkedList(Arrays.asList(givenSecondArray));
+
+    boolean result = LinkedListUtils.containsSubsequence(firstSequence, secondSequence);
+
+    assertFalse(result);
   }
 }

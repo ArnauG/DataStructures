@@ -11,15 +11,15 @@ import java.util.LinkedList;
 public class LinkedListUtils {
 
   public static void insertSorted(LinkedList<Integer> list, int value) {
-    int breakIndex = 0;
+    int additionIndex = 0;
     for (int i = 0; i < list.size(); i++) {
       if (list.get(i) > value) {
         break;
       }
-      breakIndex++;
+      additionIndex++;
     }
 
-    list.add(breakIndex, value);
+    list.add(additionIndex, value);
   }
 
   public static void removeMaximumValues(LinkedList<String> list, int N) {
@@ -45,9 +45,19 @@ public class LinkedListUtils {
   }
 
   public static boolean containsSubsequence(LinkedList<Integer> one, LinkedList<Integer> two) {
-
-    /* IMPLEMENT THIS METHOD! */
-
-    return true; // this line is here only so this code will compile if you don't modify it
+    boolean isIn = false;
+    int startPosition = 0;
+    while ((one.size() - startPosition) >= two.size() && !isIn) {
+      for (int i = 0; i < two.size(); i++) {
+        if (one.get(startPosition + i) == two.get(i)) {
+          isIn = true;
+        } else {
+          isIn = false;
+          break;
+        }
+      }
+      startPosition++;
+    }
+    return isIn;
   }
 }
