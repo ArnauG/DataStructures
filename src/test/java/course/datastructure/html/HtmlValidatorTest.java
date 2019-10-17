@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class HtmlValidatorTest {
 
-  private static final String ROOT_PATH = "";
+  private static final String ROOT_PATH = "/Users/arnau.guell/Source/personal/DataStructures/src/test/resources";
 
   @Test
   public void itShouldReturnTheTagOfAnUnicOpenTagHtml() throws IOException {
